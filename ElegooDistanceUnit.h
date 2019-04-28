@@ -77,7 +77,7 @@ public:
 	{
 		servo.attach(config.SERVO_PIN);
 		pinMode(config.ECHO_PIN, INPUT);
-		pinMode(config.TRIGGER_PIN, INPUT);
+		pinMode(config.TRIGGER_PIN, OUTPUT);
 	}
 
 	void test()
@@ -208,6 +208,7 @@ private:
 
 		setDirection(direction);
 		int distance = readDistance();
+		Serial.println(distance);
 #if DEBUG_THE_CAR
 		debugDistanceForDirection(direction, distance);
 #endif

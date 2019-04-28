@@ -18,6 +18,10 @@ public:
 
 	virtual int processCommand(ElegooCommand cmd)
 	{
+		if(cmd == ElegooCommand::NO_COMMAND) {
+			return motorUnit.statusOK();
+		}
+		
 		if (checkFrontForObstacles(cmd) == ElegooConstants::STOPPED)
 		{
 			return motorUnit.statusOK();
