@@ -34,3 +34,5 @@
 /.cproject
 /.ino.cpp
 /sloeber.ino.cpp
+
+.vscode/
