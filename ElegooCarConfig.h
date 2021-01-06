@@ -3,12 +3,10 @@
 
 #include <Arduino.h>
 
-class ElegooCarConfig
+struct ElegooCarConfig
 {
-public:
-	class DistanceUnitConfig
+	struct DistanceUnitConfig
 	{
-	public:
 		uint8_t ECHO_PIN = PIN_A4;
 
 		uint8_t TRIGGER_PIN = PIN_A5;
@@ -20,29 +18,25 @@ public:
 		int SERVO_LEFT = 160; // taking 160 as default instead of 180, since sometimes the servo may have issues with value 180
 	};
 
-	class MotorUnitConfig
+	struct MotorUnitConfig
 	{
-	public:
 		int SPEED = 170;
 	};
 
-	class InfraredReceiverConfig
+	struct InfraredReceiverConfig
 	{
-	public:
 		uint8_t RECEIVER_PIN = 12;
 
 		int MAX_NUM_RECEIVERS = 10;
 	};
 
-	class BluetoothReceiverConfig
+	struct BluetoothReceiverConfig
 	{
-	public:
 		int MAX_NUM_RECEIVERS = 10;
 	};
 
-	class SerialConfig
+	struct SerialConfig
 	{
-	public:
 		unsigned long BAUD_RATE = 9600;
 	};
 
