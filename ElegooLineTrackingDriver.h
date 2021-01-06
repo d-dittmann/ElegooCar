@@ -15,7 +15,7 @@ public:
 	{
 	}
 
-	virtual int processCommand(ElegooCommand cmd)
+	virtual int processCommand(ElegooCommand /* cmd */)
 	{
 		return motorUnit.statusOK();
 	}

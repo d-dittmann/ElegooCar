@@ -16,7 +16,7 @@ public:
 	{
 	}
 
-	virtual int processCommand(ElegooCommand cmd)
+	virtual int processCommand(ElegooCommand /* cmd */)
 	{
 		const int frontDistance = distUnit.frontDistance();
 		if (frontDistance > safetyDistanceInCM)
