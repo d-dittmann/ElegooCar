@@ -16,17 +16,12 @@ ElegooCarV3 * car = 0;
 void setup()
 {
 	ElegooCarConfig * carConfig = new ElegooCarConfig();
-	carConfig->SAFETY_DISTANCE_CM = 30;
-	carConfig->serialConfig.BAUD_RATE = 9600;
-	carConfig->distanceUnitConfig.SERVO_RIGHT = 20;
 	carConfig->distanceUnitConfig.SERVO_LEFT = 180;
-	carConfig->motorUnitConfig.SPEED = 170;
 	carConfig->infraredReceiverConfig.MAX_NUM_RECEIVERS = 4;
 	carConfig->bluetoothReceiverConfig.MAX_NUM_RECEIVERS = 4;
 
 	car = new ElegooCarV3(carConfig);
 	car->setup();
-	car->selectManualDriver();
 
 	car->registerInfraredConfig(new ElegooInfraredConfig());
 	car->registerInfraredConfig(new PanasonicInfraredConfig());
