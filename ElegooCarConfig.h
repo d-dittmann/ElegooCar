@@ -20,6 +20,18 @@ struct ElegooCarConfig
 
 	struct MotorUnitConfig
 	{
+		uint8_t PWM_LEFT_PIN = 5; // ENA
+
+		uint8_t PWM_RIGHT_PIN = 6; // ENB
+
+		uint8_t LEFT_PIN = 7; // IN1
+
+		uint8_t LEFT_INV_PIN = 8; // IN2
+
+		uint8_t RIGHT_INV_PIN = 9; // IN3
+
+		uint8_t RIGHT_PIN = 11; // IN4
+
 		int SPEED = 170;
 	};
 

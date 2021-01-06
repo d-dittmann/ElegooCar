@@ -6,13 +6,6 @@
 #include "ElegooInterruptibleUnit.h"
 #include "ElegooCarConfig.h"
 
-#define ENA 5
-#define ENB 6
-#define IN1 7
-#define IN2 8
-#define IN3 9
-#define IN4 11
-
 class Action
 {
 public:
@@ -77,12 +70,12 @@ public:
 
 	ElegooMotorUnit & setup()
 	{
-		pinMode(ENA, OUTPUT);
-		pinMode(ENB, OUTPUT);
-		pinMode(IN1, OUTPUT);
-		pinMode(IN2, OUTPUT);
-		pinMode(IN3, OUTPUT);
-		pinMode(IN4, OUTPUT);
+		pinMode(config.PWM_LEFT_PIN, OUTPUT);
+		pinMode(config.PWM_RIGHT_PIN, OUTPUT);
+		pinMode(config.LEFT_PIN, OUTPUT);
+		pinMode(config.LEFT_INV_PIN, OUTPUT);
+		pinMode(config.RIGHT_INV_PIN, OUTPUT);
+		pinMode(config.RIGHT_PIN, OUTPUT);
 		return *this;
 	}
 
@@ -139,15 +132,15 @@ private:
 
 	ElegooMotorUnit & powerOnWheels()
 	{
-		analogWrite(ENA, config.SPEED);
-		analogWrite(ENB, config.SPEED);
+		analogWrite(config.PWM_LEFT_PIN, config.SPEED);
+		analogWrite(config.PWM_RIGHT_PIN, config.SPEED);
 		return *this;
 	}
 
 	ElegooMotorUnit & stopWheels()
 	{
-		digitalWrite(ENA, LOW);
-		digitalWrite(ENB, LOW);
+		digitalWrite(config.PWM_LEFT_PIN, LOW);
+		digitalWrite(config.PWM_RIGHT_PIN, LOW);
 		return *this;
 	}
 
@@ -160,7 +153,7 @@ private:
 
 		powerOnWheels();
 
-		DriveAction driveAction(IN1, valIn1, IN2, valIn2, IN3, valIn3, IN4, valIn4);
+		DriveAction driveAction(config.LEFT_PIN, valIn1, config.LEFT_INV_PIN, valIn2, config.RIGHT_INV_PIN, valIn3, config.RIGHT_PIN, valIn4);
 
 		return runInterruptableAction(driveAction, timeMS);
 	}
