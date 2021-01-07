@@ -1,5 +1,6 @@
 #include <Arduino.h>
 
+#define CAR_VERSION 4 // choose the Elegoo Robot Car Version: 3 or 4
 #define DEBUG_THE_CAR 1
 #define TEST_THE_CAR 0
 
