@@ -3,70 +3,84 @@
 
 #include <Arduino.h>
 
-#if CAR_VERSION == 3
-	#define DISTANCEUNIT_ECHO_PIN    PIN_A4
-	#define DISTANCEUNIT_TRIGGER_PIN PIN_A5
-	#define DISTANCEUNIT_SERVO_PIN   3
-	#define MOTORUNIT_PWM_LEFT_PIN   5
-	#define MOTORUNIT_PWM_RIGHT_PIN  6
-	#define MOTORUNIT_LEFT_PIN       7
-	#define MOTORUNIT_LEFT_INV_PIN   8
-	#define MOTORUNIT_RIGHT_INV_PIN  9
-	#define MOTORUNIT_RIGHT_PIN      11
-	#define IRRECEIVER_RECEIVER_PIN  12
-#elif CAR_VERSION == 4
-	#define DISTANCEUNIT_ECHO_PIN    12
-	#define DISTANCEUNIT_TRIGGER_PIN 13
-	#define DISTANCEUNIT_SERVO_PIN   10
-	#define MOTORUNIT_PWM_LEFT_PIN   6
-	#define MOTORUNIT_PWM_RIGHT_PIN  5
-	#define MOTORUNIT_LEFT_PIN       7
-	#define MOTORUNIT_LEFT_INV_PIN   0 // unused
-	#define MOTORUNIT_RIGHT_INV_PIN  8
-	#define MOTORUNIT_RIGHT_PIN      0 // unused
-	#define IRRECEIVER_RECEIVER_PIN  9
-#else
-	#error Unknown CAR_VERSION
-#endif
+// pin 0 of Arduino is used by UART (RX) at the car and not by any others
+// so we use it as magic number to mark the pin as unused.
+static constexpr uint8_t UNUSED_PIN = 0;
 
+template <int CVERSION>
+struct ElegooCarPinConfig {};
+
+template <>
+struct ElegooCarPinConfig<3>
+{
+	struct DistanceUnitConfig
+	{
+		static constexpr uint8_t ECHO_PIN = PIN_A4;
+		static constexpr uint8_t TRIGGER_PIN = PIN_A5;
+		static constexpr int SERVO_PIN = 3;
+	};
+
+	struct MotorUnitConfig
+	{
+		static constexpr uint8_t PWM_LEFT_PIN = 5; // ENA
+		static constexpr uint8_t PWM_RIGHT_PIN = 6; // ENB
+		static constexpr uint8_t LEFT_PIN = 7; // IN1
+		static constexpr uint8_t LEFT_INV_PIN = 8; // IN2
+		static constexpr uint8_t RIGHT_INV_PIN = 9; // IN3
+		static constexpr uint8_t RIGHT_PIN = 11; // IN4
+	};
+
+	struct InfraredReceiverConfig
+	{
+		static constexpr uint8_t RECEIVER_PIN = 12;
+	};
+};
+
+template <>
+struct ElegooCarPinConfig<4>
+{
+	struct DistanceUnitConfig
+	{
+		static constexpr uint8_t ECHO_PIN = 12;
+		static constexpr uint8_t TRIGGER_PIN = 13;
+		static constexpr int SERVO_PIN = 10;
+	};
+
+	struct MotorUnitConfig
+	{
+		static constexpr uint8_t PWM_LEFT_PIN = 6; // ENB
+		static constexpr uint8_t PWM_RIGHT_PIN = 5; // ENA
+		static constexpr uint8_t LEFT_PIN = 7; // BIN1
+		static constexpr uint8_t LEFT_INV_PIN = UNUSED_PIN;
+		static constexpr uint8_t RIGHT_INV_PIN = 8; // AIN1
+		static constexpr uint8_t RIGHT_PIN = UNUSED_PIN;
+	};
+
+	struct InfraredReceiverConfig
+	{
+		static constexpr uint8_t RECEIVER_PIN = 9;
+	};
+};
 
 
 struct ElegooCarConfig
 {
-	struct DistanceUnitConfig
+	using PinConfig = ElegooCarPinConfig<CAR_VERSION>;
+
+	struct DistanceUnitConfig : PinConfig::DistanceUnitConfig
 	{
-		uint8_t ECHO_PIN = DISTANCEUNIT_ECHO_PIN;
-
-		uint8_t TRIGGER_PIN = DISTANCEUNIT_TRIGGER_PIN;
-
-		int SERVO_PIN = DISTANCEUNIT_SERVO_PIN;
-
 		int SERVO_RIGHT = 20; // taking 20 as default instead of 0, since sometimes the servo seems to have issues with value 0
 
 		int SERVO_LEFT = 160; // taking 160 as default instead of 180, since sometimes the servo may have issues with value 180
 	};
 
-	struct MotorUnitConfig
+	struct MotorUnitConfig : PinConfig::MotorUnitConfig
 	{
-		uint8_t PWM_LEFT_PIN = MOTORUNIT_PWM_LEFT_PIN; // ENA
-
-		uint8_t PWM_RIGHT_PIN = MOTORUNIT_PWM_RIGHT_PIN; // ENB
-
-		uint8_t LEFT_PIN = MOTORUNIT_LEFT_PIN; // IN1
-
-		uint8_t LEFT_INV_PIN = MOTORUNIT_LEFT_INV_PIN; // IN2
-
-		uint8_t RIGHT_INV_PIN = MOTORUNIT_RIGHT_INV_PIN; // IN3
-
-		uint8_t RIGHT_PIN = MOTORUNIT_RIGHT_PIN; // IN4
-
 		int SPEED = 170;
 	};
 
-	struct InfraredReceiverConfig
+	struct InfraredReceiverConfig : PinConfig::InfraredReceiverConfig
 	{
-		uint8_t RECEIVER_PIN = IRRECEIVER_RECEIVER_PIN;
-
 		int MAX_NUM_RECEIVERS = 10;
 	};
 
