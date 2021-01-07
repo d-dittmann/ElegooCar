@@ -1,8 +1,14 @@
 #include <Arduino.h>
 
-#define CAR_VERSION 4 // choose the Elegoo Robot Car Version: 3 or 4
+// choose the Elegoo Robot Car Version: 3 or 4
+//#define CAR_VERSION 3
+//#define CAR_VERSION 4
 #define DEBUG_THE_CAR 1
 #define TEST_THE_CAR 0
+
+#ifndef CAR_VERSION
+	#error please choose the CAR_VERSION to build
+#endif
 
 #include "ElegooCarV3.h"
 #include "ElegooInfraredConfig.h"
