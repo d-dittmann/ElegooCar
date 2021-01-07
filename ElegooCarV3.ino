@@ -17,7 +17,6 @@ ElegooCarV3 * car = 0;
 void setup()
 {
 	ElegooCarConfig * carConfig = new ElegooCarConfig();
-	carConfig->distanceUnitConfig.SERVO_LEFT = 180;
 	carConfig->infraredReceiverConfig.MAX_NUM_RECEIVERS = 4;
 	carConfig->bluetoothReceiverConfig.MAX_NUM_RECEIVERS = 4;
 
