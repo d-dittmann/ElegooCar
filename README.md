@@ -1,18 +1,19 @@
 # ElegooCarV3
-Software for my ELEGOO Smart Robot Car Kit V3.0
+Software for my ELEGOO Smart Robot Car Kit V3.0 and V4.0
 
 The idea of the project is to have an object-oriented solution to control the car, and to have all features in one implementation.
 
-| Feature | Status |
-| :--- | :--- |
-| Bluetooth remote controlled | Implemented |
-| Infrared remote controlled | Implemented |
-| Switching driving algorithm via bluetooth remote control | Implemented |
-| Manual mode 1 (Manual-1), brakes on obstacles | Implemented. Only moves a short distance at a time
-| Manual mode 2 (Manual-2), brakes on obstacles | Implemented. Keeps on moving until it gets stopped
-| Automatic mode 1 (Auto-1), continuous driving with obstacle avoidance | Implemented. Has trouble recognizing soft obstacles, smaller obstacles, and walls if approached in angles < 45 degrees or > 135 degrees |
-| Automatic mode 2 (Auto-2), interrupted driving with rescan of environment | Implemented. Has trouble recognizing soft obstacles, smaller obstacles, and walls if approached in angles < 45 degrees or > 135 degrees |
-| Line tracking support | Planned |
+| Feature | Car Version | Status |
+| :--- | :--- | :--- |
+| Bluetooth remote controlled | V3.0 only | Implemented |
+| Infrared remote controlled | V3.0, V4.0 | Implemented |
+| Switching driving algorithm via bluetooth remote control | V3.0 only | Implemented |
+| Manual mode 1 (Manual-1), brakes on obstacles | V3.0, V4.0 | Implemented. Only moves a short distance at a time
+| Manual mode 2 (Manual-2), brakes on obstacles | V3.0, V4.0 | Implemented. Keeps on moving until it gets stopped
+| Automatic mode 1 (Auto-1), continuous driving with obstacle avoidance | V3.0, V4.0 | Implemented. Has trouble recognizing soft obstacles, smaller obstacles, and walls if approached in angles < 45 degrees or > 135 degrees |
+| Automatic mode 2 (Auto-2), interrupted driving with rescan of environment | V3.0, V4.0 | Implemented. Has trouble recognizing soft obstacles, smaller obstacles, and walls if approached in angles < 45 degrees or > 135 degrees |
+| Line tracking support | V3.0, V4.0 | Planned |
+| More hardware suppport ("Mode" Button, RGB LED, MPU6050, WIFI Control) | V4.0 | Planned |
 
 ## The Car
 
@@ -41,7 +42,7 @@ This software can also be used in combination with the regular Arduino IDE, as d
 | Download and install the Arduino IDE | Download from  https://www.arduino.cc/en/Main/Software and follow the provided instructions |
 | Download and unpack the ElegooCarV3 package | Download https://github.com/pieterbl/ElegooCarV3/blob/master/resources/ElegooCarV3.zip and unpack in your Arduino sketches directory, so that you have a directory ElegooCarV3 with the files ElegooCarV3.ino and the remaining files in it |
 | Download and install the latest IRremote library version | Follow the **Installation** instructions here https://github.com/z3t0/Arduino-IRremote/blob/master/README.md and make sure to follow the instructions regarding the RobotIRremote  library. Download of version 2.2.3 is accessible here, too http://www.arduinolibraries.info/libraries/i-rremote  |
-| Restart the Arduino IDE and open ElegooCarV3.ino |  Make sure your car is connected with your computer. Press verify to verify the software,  press upload to upload the software to the car |
+| Restart the Arduino IDE and open ElegooCarV3.ino | Check and modify the **CAR_VERSION** in ElegooCarV3.ino. Make sure your car is connected with your computer. Press verify to verify the software,  press upload to upload the software to the car |
 | Download and configure the bluetooth app | Download the bluetooth  app from the below given locations. Configure the bluetooth app as described below |
 | Drive the car  | Have fun and enjoy it |
 
