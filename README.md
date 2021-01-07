@@ -40,7 +40,7 @@ This software can also be used in combination with the regular Arduino IDE, as d
 | Step | Details |
 | :--- | :--- |
 | Download and install the Arduino IDE | Download from  https://www.arduino.cc/en/Main/Software and follow the provided instructions |
-| Download and unpack the ElegooCarV3 package | Download https://github.com/pieterbl/ElegooCarV3/blob/master/resources/ElegooCarV3.zip and unpack in your Arduino sketches directory, so that you have a directory ElegooCarV3 with the files ElegooCarV3.ino and the remaining files in it |
+| Download and unpack the ElegooCarV3 package | Download https://github.com/pieterbl/ElegooCarV3/archive/master.zip and unpack in your Arduino sketches directory, so that you have a directory ElegooCarV3 with the files ElegooCarV3.ino and the remaining files in it |
 | Download and install the latest IRremote library version | Follow the **Installation** instructions here https://github.com/z3t0/Arduino-IRremote/blob/master/README.md and make sure to follow the instructions regarding the RobotIRremote  library. Download of version 2.2.3 is accessible here, too http://www.arduinolibraries.info/libraries/i-rremote  |
 | Restart the Arduino IDE and open ElegooCarV3.ino | Check and modify the **CAR_VERSION** in ElegooCarV3.ino. Make sure your car is connected with your computer. Press verify to verify the software,  press upload to upload the software to the car |
 | Download and configure the bluetooth app | Download the bluetooth  app from the below given locations. Configure the bluetooth app as described below |
