@@ -1,4 +1,5 @@
-# ElegooCarV3
+# ElegooCar
+
 Software for my ELEGOO Smart Robot Car Kit V3.0 and V4.0
 
 The idea of the project is to have an object-oriented solution to control the car, and to have all features in one implementation.
