@@ -13,6 +13,11 @@ struct ElegooCarPinConfig {};
 template <>
 struct ElegooCarPinConfig<3>
 {
+	struct StatusConfig
+	{
+		static constexpr uint8_t RGB_LED_PIN = UNUSED_PIN;
+	};
+
 	struct DistanceUnitConfig
 	{
 		static constexpr uint8_t ECHO_PIN = PIN_A4;
@@ -39,6 +44,11 @@ struct ElegooCarPinConfig<3>
 template <>
 struct ElegooCarPinConfig<4>
 {
+	struct StatusConfig
+	{
+		static constexpr uint8_t RGB_LED_PIN = 4;
+	};
+
 	struct DistanceUnitConfig
 	{
 		static constexpr uint8_t ECHO_PIN = 12;
@@ -66,6 +76,10 @@ struct ElegooCarPinConfig<4>
 struct ElegooCarConfig
 {
 	using PinConfig = ElegooCarPinConfig<CAR_VERSION>;
+
+	struct StatusConfig : PinConfig::StatusConfig
+	{
+	};
 
 	struct DistanceUnitConfig : PinConfig::DistanceUnitConfig
 	{
@@ -95,6 +109,7 @@ struct ElegooCarConfig
 	};
 
 	int SAFETY_DISTANCE_CM = 30;
+	StatusConfig statusConfig;
 	DistanceUnitConfig distanceUnitConfig;
 	MotorUnitConfig motorUnitConfig;
 	InfraredReceiverConfig infraredReceiverConfig;

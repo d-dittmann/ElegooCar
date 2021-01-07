@@ -4,6 +4,7 @@
 #include <Arduino.h>
 #include "ElegooConstants.h"
 #include "ElegooCarConfig.h"
+#include "ElegooStatus.h"
 #include "ElegooDistanceUnit.h"
 #include "ElegooMotorUnit.h"
 #include "ElegooInfraredReceiver.h"
@@ -20,6 +21,9 @@ class ElegooCarV3
 private:
 
 	ElegooCarConfig * carConfig;
+
+	using ElegooStatus = ElegooStatus<ElegooCarConfig::StatusConfig::RGB_LED_PIN>;
+	ElegooStatus status;
 
 	ElegooDistanceUnit distUnit;
 
@@ -41,6 +45,7 @@ public:
 
 	ElegooCarV3(ElegooCarConfig * pCarConfig) :
 			carConfig(pCarConfig), //
+			status(carConfig->statusConfig),
 			distUnit(carConfig->distanceUnitConfig), //
 			motorUnit(carConfig->motorUnitConfig), //
 			infraredReceiver(carConfig->infraredReceiverConfig), //
@@ -53,6 +58,7 @@ public:
 	int setup()
 	{
 		Serial.begin(carConfig->serialConfig.BAUD_RATE);
+		status.setup();
 		distUnit.setup();
 		distUnit.registerCommandReader(&commandReader);
 		motorUnit.setup();
@@ -105,6 +111,7 @@ private:
 		if (isDriver(newDriver))
 		{
 			currentDriver = drivers[newDriver];
+			status.activeDriver(newDriver);
 		}
 		return ElegooConstants::OK;
 	}
