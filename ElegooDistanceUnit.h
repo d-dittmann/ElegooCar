@@ -208,7 +208,6 @@ private:
 
 		setDirection(direction);
 		int distance = readDistance();
-		Serial.println(distance);
 #if DEBUG_THE_CAR
 		debugDistanceForDirection(direction, distance);
 #endif
