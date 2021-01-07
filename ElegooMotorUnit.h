@@ -28,6 +28,12 @@ private:
 	uint8_t pin1, pin2, pin3, pin4;
 	uint8_t val1, val2, val3, val4;
 
+	static void condDigitalWrite(uint8_t pin, uint8_t val) {
+		if (pin != 0) {
+			::digitalWrite(pin, val);
+		}
+	}
+
 public:
 	DriveAction( //
 			uint8_t pPin1, uint8_t pVal1, //
@@ -42,10 +48,10 @@ public:
 
 	virtual void execute()
 	{
-		digitalWrite(pin1, val1);
-		digitalWrite(pin2, val2);
-		digitalWrite(pin3, val3);
-		digitalWrite(pin4, val4);
+		condDigitalWrite(pin1, val1);
+		condDigitalWrite(pin2, val2);
+		condDigitalWrite(pin3, val3);
+		condDigitalWrite(pin4, val4);
 	}
 
 	virtual ~DriveAction()
@@ -58,6 +64,12 @@ class ElegooMotorUnit: public ElegooBase, public ElegooInterruptibleUnit
 private:
 
 	ElegooCarConfig::MotorUnitConfig & config;
+
+	static void condPinMode(uint8_t pin, uint8_t mode) {
+		if (pin != 0) {
+			::pinMode(pin, mode);
+		}
+	}
 
 public:
 
@@ -72,10 +84,10 @@ public:
 	{
 		pinMode(config.PWM_LEFT_PIN, OUTPUT);
 		pinMode(config.PWM_RIGHT_PIN, OUTPUT);
-		pinMode(config.LEFT_PIN, OUTPUT);
-		pinMode(config.LEFT_INV_PIN, OUTPUT);
-		pinMode(config.RIGHT_INV_PIN, OUTPUT);
-		pinMode(config.RIGHT_PIN, OUTPUT);
+		condPinMode(config.LEFT_PIN, OUTPUT);
+		condPinMode(config.LEFT_INV_PIN, OUTPUT);
+		condPinMode(config.RIGHT_INV_PIN, OUTPUT);
+		condPinMode(config.RIGHT_PIN, OUTPUT);
 		return *this;
 	}
 
