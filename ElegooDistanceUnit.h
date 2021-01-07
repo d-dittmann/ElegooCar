@@ -141,7 +141,7 @@ private:
 		servo.write(adjustedDirection);
 
 #if DEBUG_THE_CAR
-		debugOrgVsAdjDirection(direction, adjustedDirection);
+		debugOrgVsAdjDirection(_direction, adjustedDirection);
 #endif
 
 		if (_direction != adjustedDirection)
