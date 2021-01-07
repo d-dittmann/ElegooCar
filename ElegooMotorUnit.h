@@ -29,7 +29,7 @@ private:
 	uint8_t val1, val2, val3, val4;
 
 	static void condDigitalWrite(uint8_t pin, uint8_t val) {
-		if (pin != 0) {
+		if (pin != UNUSED_PIN) {
 			::digitalWrite(pin, val);
 		}
 	}
@@ -66,7 +66,7 @@ private:
 	ElegooCarConfig::MotorUnitConfig & config;
 
 	static void condPinMode(uint8_t pin, uint8_t mode) {
-		if (pin != 0) {
+		if (pin != UNUSED_PIN) {
 			::pinMode(pin, mode);
 		}
 	}
