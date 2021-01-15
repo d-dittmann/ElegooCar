@@ -7,6 +7,7 @@
 #include "ElegooStatus.h"
 #include "ElegooDistanceUnit.h"
 #include "ElegooMotorUnit.h"
+#include "ElegooReceiverChain.h"
 #include "ElegooInfraredReceiver.h"
 #include "ElegooBluetoothReceiver.h"
 #include "ElegooCommandReader.h"
@@ -29,6 +30,8 @@ private:
 
 	ElegooMotorUnit motorUnit;
 
+	ElegooReceiverChain<2> receivers;
+
 	ElegooInfraredReceiver infraredReceiver;
 
 	ElegooBluetoothReceiver bluetoothReceiver;
@@ -50,9 +53,11 @@ public:
 			motorUnit(carConfig->motorUnitConfig), //
 			infraredReceiver(carConfig->infraredReceiverConfig), //
 			bluetoothReceiver(carConfig->bluetoothReceiverConfig), //
-			commandReader(infraredReceiver, bluetoothReceiver), //
+			commandReader(receivers), //
 			safetyDistanceInCM(carConfig->SAFETY_DISTANCE_CM)
 	{
+		receivers.add<0>(&infraredReceiver);
+		receivers.add<1>(&bluetoothReceiver);
 	}
 
 	int setup()
@@ -185,12 +190,12 @@ public:
 
 	void testInfrared()
 	{
-		commandReader.testInfrared();
+		commandReader.testReceiver(infraredReceiver);
 	}
 
 	void testBluetooth()
 	{
-		commandReader.testBluetooth();
+		commandReader.testReceiver(bluetoothReceiver);
 	}
 
 };

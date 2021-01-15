@@ -2,24 +2,19 @@
 #define __ELEGOO_COMMAND_READER_H__
 
 #include "ElegooCommand.h"
-#include "ElegooInfraredReceiver.h"
-#include "ElegooBluetoothReceiver.h"
+#include "ElegooReceiver.h"
 
 class ElegooCommandReader
 {
 private:
-	ElegooInfraredReceiver & infraredReceiver;
-
-	ElegooBluetoothReceiver & bluetoothReceiver;
+	ElegooReceiver & receiver;
 
 	static const int EMPTY_CACHE = -1;
 
 	int cachedCommand = EMPTY_CACHE;
 
 public:
-	// TODO (P2-LOW) If more receivers must be supported, we cannot stick to constructor arguments
-	ElegooCommandReader(ElegooInfraredReceiver & pInfraredReceiver, ElegooBluetoothReceiver & pBluetoothReceiver) :
-			infraredReceiver(pInfraredReceiver), bluetoothReceiver(pBluetoothReceiver)
+	ElegooCommandReader(ElegooReceiver & pReceiver) : receiver{pReceiver}
 	{
 	}
 
@@ -60,37 +55,10 @@ private:
 	// May also return UNKNOWN_CMD or NO_COMMAND
 	ElegooCommand readTheCommand()
 	{
-		ElegooCommand cmd = ElegooCommand::NO_COMMAND;
-
-		cmd = infraredReceiver.readCommand();
-		if (ElegooCommandUtil::isValidCommand(cmd))
-		{
-			return cmd;
-		}
-
-		cmd = bluetoothReceiver.readCommand();
-		if (ElegooCommandUtil::isValidCommand(cmd))
-		{
-			return cmd;
-		}
-
-		return cmd;
+		return receiver.readCommand();
 	}
 
 public:
-	void testInfrared()
-	{
-		// positively tested that we detect NO_COMMAND, as long as no buttons are pressed
-		ElegooCommandReader::testReceiver(infraredReceiver);
-	}
-
-	void testBluetooth()
-	{
-		// positively tested that we detect NO_COMMAND, as long as no buttons are pressed
-		ElegooCommandReader::testReceiver(bluetoothReceiver);
-	}
-
-private:
 	static void testReceiver(ElegooReceiver & receiver)
 	{
 		long noCmdCnt = 0;
