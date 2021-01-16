@@ -9,12 +9,14 @@ The idea of the project is to have an object-oriented solution to control the ca
 | Bluetooth remote controlled | V3.0 only | Implemented |
 | Infrared remote controlled | V3.0, V4.0 | Implemented |
 | Switching driving algorithm via bluetooth remote control | V3.0 only | Implemented |
+| Switching driving algorithm via mode switch button | V4.0 | Implemented. Toggling through available drivers. |
+| RGB LED shows selected driving algorithm | V4.0 | Implemented |
 | Manual mode 1 (Manual-1), brakes on obstacles | V3.0, V4.0 | Implemented. Only moves a short distance at a time
 | Manual mode 2 (Manual-2), brakes on obstacles | V3.0, V4.0 | Implemented. Keeps on moving until it gets stopped
 | Automatic mode 1 (Auto-1), continuous driving with obstacle avoidance | V3.0, V4.0 | Implemented. Has trouble recognizing soft obstacles, smaller obstacles, and walls if approached in angles < 45 degrees or > 135 degrees |
 | Automatic mode 2 (Auto-2), interrupted driving with rescan of environment | V3.0, V4.0 | Implemented. Has trouble recognizing soft obstacles, smaller obstacles, and walls if approached in angles < 45 degrees or > 135 degrees |
 | Line tracking support | V3.0, V4.0 | Planned |
-| More hardware suppport ("Mode" Button, RGB LED, MPU6050, WIFI Control) | V4.0 | Planned |
+| More hardware suppport (MPU6050, WIFI Control) | V4.0 | Planned |
 
 ## The Car
 
@@ -71,7 +73,17 @@ The bluetooth app must be configured in the following way:
 | Manual-1 (M) | Backward (B) | Auto-1 (1) |
 | Manual-2 (N)  | _empty_  | Auto-2 (2)  |
 
+## Driving with Infrared
 
+The Car is shipped with a infrared control.
+
+| Key | Action |
+| :--- | :--- |
+| Arrow Up | drive forward |
+| Arrow Down | drive backward |
+| Arrow Left | rotate left |
+| Arrow Right | rotate right |
+| * | switch to next driving mode |
 
 # Trouble Shooting
 
