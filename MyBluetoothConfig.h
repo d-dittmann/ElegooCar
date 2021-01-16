@@ -6,9 +6,9 @@
 class MyBluetoothConfig: public ElegooBluetoothConfigInterface
 {
 public:
-	virtual const char * getSupportedCharacters()
+	virtual const char * getSupportedCharacters() const
 	{
-		return "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-+/\\";
+		return "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-+*/\\";
 	}
 
 	// May return UNKNOWN_CMD, will never return NO_COMMAND
@@ -40,6 +40,8 @@ public:
 			return ElegooCommand::AUTO_DRIVER_2;
 		case 'T':
 			return ElegooCommand::LINE_TRACKING_DRIVER;
+		case '*':
+			return ElegooCommand::NEXT_DRIVER;
 		default:
 			return ElegooCommand::UNK_COMMAND;
 		}

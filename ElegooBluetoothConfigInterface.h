@@ -10,7 +10,7 @@ class ElegooBluetoothConfigInterface
 public:
 	virtual ElegooCommand checkCommand(const char possibleCommandCode) = 0;
 
-	virtual const char * getSupportedCharacters() = 0;
+	virtual const char * getSupportedCharacters() const = 0;
 
 	virtual bool isSupportedCharacter(char charToCheck)
 	{

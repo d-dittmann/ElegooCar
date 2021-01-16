@@ -40,7 +40,7 @@ private:
 
 	ElegooDriverBase * drivers[5];
 
-	ElegooDriverBase * currentDriver = 0;
+	ElegooCommand activeDriver = {};
 
 	int safetyDistanceInCM;
 
@@ -105,26 +105,54 @@ private:
 		case ElegooCommand::AUTO_DRIVER_1:
 		case ElegooCommand::AUTO_DRIVER_2:
 		case ElegooCommand::LINE_TRACKING_DRIVER:
+		case ElegooCommand::NEXT_DRIVER:
 			return true;
 		default:
 			return false;
 		}
 	}
 
+	ElegooCommand nextDriver() const
+	{
+		switch (activeDriver)
+		{
+		case ElegooCommand::MANUAL_DRIVER_1:
+			return ElegooCommand::MANUAL_DRIVER_2;
+		case ElegooCommand::MANUAL_DRIVER_2:
+			return ElegooCommand::AUTO_DRIVER_1;
+		case ElegooCommand::AUTO_DRIVER_1:
+			return ElegooCommand::AUTO_DRIVER_2;
+		case ElegooCommand::AUTO_DRIVER_2:
+			return ElegooCommand::LINE_TRACKING_DRIVER;
+		case ElegooCommand::LINE_TRACKING_DRIVER:
+			return ElegooCommand::MANUAL_DRIVER_1;
+		default:
+			ElegooCommand::MANUAL_DRIVER_1;
+		}
+	}
+
+	ElegooDriverBase& currentDriver() const
+	{
+		return *drivers[activeDriver];
+	}
+
 	int selectDriver(ElegooCommand newDriver)
 	{
-		if (isDriver(newDriver))
+		if (newDriver == ElegooCommand::NEXT_DRIVER)
 		{
-			currentDriver = drivers[newDriver];
-			status.activeDriver(newDriver);
+			newDriver = nextDriver();
 		}
+
+		activeDriver = newDriver;
+		status.activeDriver(newDriver);
+
 		return ElegooConstants::OK;
 	}
 
 	bool usingManualDriver()
 	{
-		return (currentDriver == drivers[ElegooCommand::MANUAL_DRIVER_1] || //
-				currentDriver == drivers[ElegooCommand::MANUAL_DRIVER_2]);
+		return (activeDriver == ElegooCommand::MANUAL_DRIVER_1 || //
+				activeDriver == ElegooCommand::MANUAL_DRIVER_2);
 	}
 
 public:
@@ -153,6 +181,12 @@ public:
 			return ElegooConstants::OK;
 		}
 
+		if (isDriver(cmd))
+		{
+			motorUnit.stopMoving();
+			return selectDriver(cmd);
+		}
+
 		if (!usingManualDriver() && cmd != ElegooCommand::NO_COMMAND)
 		{
 			motorUnit.stopMoving();
@@ -162,21 +196,13 @@ public:
 
 		if (usingManualDriver())
 		{
-			if (isDriver(cmd))
-			{
-				motorUnit.stopMoving();
-				return selectDriver(cmd);
-			}
-			else
-			{
-				// manual drivers do correctly handle UNK_COMMAND and even rely on NO_COMMAND
-				return currentDriver->processCommand(cmd);
-			}
+			// manual drivers do correctly handle UNK_COMMAND and even rely on NO_COMMAND
+			return currentDriver().processCommand(cmd);
 		}
 
 		// automatic drivers will/must not listen to commands
 		// they must just get "re-triggered"
-		return currentDriver->processCommand(ElegooCommand::NO_COMMAND);
+		return currentDriver().processCommand(ElegooCommand::NO_COMMAND);
 	}
 
 	void testDistanceUnit()

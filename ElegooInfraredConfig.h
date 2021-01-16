@@ -27,6 +27,9 @@ public:
 		case 16712445:
 		case 3622325019:
 			return ElegooCommand::STOP_MOVING;
+		case 16728765: // Key: '*'
+		case 851901943:
+			return ElegooCommand::NEXT_DRIVER;
 		default:
 			return ElegooCommand::UNK_COMMAND;
 		}
