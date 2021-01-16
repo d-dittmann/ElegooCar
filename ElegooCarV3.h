@@ -10,6 +10,7 @@
 #include "ElegooReceiverChain.h"
 #include "ElegooInfraredReceiver.h"
 #include "ElegooBluetoothReceiver.h"
+#include "ElegooButtonReceiver.h"
 #include "ElegooCommandReader.h"
 #include "ElegooManualDriver.h"
 #include "ElegooManualDriver2.h"
@@ -30,11 +31,14 @@ private:
 
 	ElegooMotorUnit motorUnit;
 
-	ElegooReceiverChain<2> receivers;
+	ElegooReceiverChain<3> receivers;
 
 	ElegooInfraredReceiver infraredReceiver;
 
 	ElegooBluetoothReceiver bluetoothReceiver;
+
+	using ElegooButtonReceiverT = ElegooButtonReceiver<ElegooCarConfig::ButtonConfig::MODE_SWITCH_PIN>;
+	ElegooButtonReceiverT buttonReceiver;
 
 	ElegooCommandReader commandReader;
 
@@ -53,11 +57,13 @@ public:
 			motorUnit(carConfig->motorUnitConfig), //
 			infraredReceiver(carConfig->infraredReceiverConfig), //
 			bluetoothReceiver(carConfig->bluetoothReceiverConfig), //
+			buttonReceiver(),
 			commandReader(receivers), //
 			safetyDistanceInCM(carConfig->SAFETY_DISTANCE_CM)
 	{
 		receivers.add<0>(&infraredReceiver);
 		receivers.add<1>(&bluetoothReceiver);
+		receivers.add<2>(&buttonReceiver);
 	}
 
 	int setup()
@@ -70,6 +76,7 @@ public:
 		motorUnit.registerCommandReader(&commandReader);
 		infraredReceiver.setup();
 		bluetoothReceiver.setup();
+		buttonReceiver.setup();
 
 		initializeDrivers();
 		selectManualDriver();

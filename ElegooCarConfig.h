@@ -18,6 +18,11 @@ struct ElegooCarPinConfig<3>
 		static constexpr uint8_t RGB_LED_PIN = UNUSED_PIN;
 	};
 
+	struct ButtonConfig
+	{
+		static constexpr uint8_t MODE_SWITCH_PIN = UNUSED_PIN;
+	};
+
 	struct DistanceUnitConfig
 	{
 		static constexpr uint8_t ECHO_PIN = PIN_A4;
@@ -49,6 +54,11 @@ struct ElegooCarPinConfig<4>
 		static constexpr uint8_t RGB_LED_PIN = 4;
 	};
 
+	struct ButtonConfig
+	{
+		static constexpr uint8_t MODE_SWITCH_PIN = 2;
+	};
+
 	struct DistanceUnitConfig
 	{
 		static constexpr uint8_t ECHO_PIN = 12;
@@ -78,6 +88,10 @@ struct ElegooCarConfig
 	using PinConfig = ElegooCarPinConfig<CAR_VERSION>;
 
 	struct StatusConfig : PinConfig::StatusConfig
+	{
+	};
+
+	struct ButtonConfig : PinConfig::ButtonConfig
 	{
 	};
 
