@@ -67,7 +67,7 @@ public:
 	{
 	}
 
-	void activeDriver(ElegooCommand newDriver)
+	void activeDriver(ElegooCommand /* newDriver */)
 	{
 	}
 };

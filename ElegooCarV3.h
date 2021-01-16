@@ -24,8 +24,8 @@ private:
 
 	ElegooCarConfig * carConfig;
 
-	using ElegooStatus = ElegooStatus<ElegooCarConfig::StatusConfig::RGB_LED_PIN>;
-	ElegooStatus status;
+	using ElegooStatusT = ElegooStatus<ElegooCarConfig::StatusConfig::RGB_LED_PIN>;
+	ElegooStatusT status;
 
 	ElegooDistanceUnit distUnit;
 
@@ -132,9 +132,8 @@ private:
 		case ElegooCommand::AUTO_DRIVER_2:
 			return ElegooCommand::LINE_TRACKING_DRIVER;
 		case ElegooCommand::LINE_TRACKING_DRIVER:
-			return ElegooCommand::MANUAL_DRIVER_1;
 		default:
-			ElegooCommand::MANUAL_DRIVER_1;
+			return ElegooCommand::MANUAL_DRIVER_1;
 		}
 	}
 
