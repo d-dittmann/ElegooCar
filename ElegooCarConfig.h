@@ -104,7 +104,10 @@ struct ElegooCarConfig
 
 	struct MotorUnitConfig : PinConfig::MotorUnitConfig
 	{
-		int SPEED = 170;
+		static constexpr uint8_t MIN_SPEED = 70;
+		static constexpr uint8_t MAX_SPEED = 250;
+		static constexpr uint8_t CHG_SPEED = 5;
+		uint8_t SPEED = 170;
 	};
 
 	struct InfraredReceiverConfig : PinConfig::InfraredReceiverConfig

@@ -177,6 +177,21 @@ public:
 		bluetoothReceiver.registerBluetoothConfig(bluetoothConfig);
 	}
 
+	int changeSpeed(ElegooCommand cmd)
+	{
+		switch (cmd)
+		{
+		case ElegooCommand::INC_SPEED:
+			motorUnit.faster();
+			return ElegooConstants::OK;
+		case ElegooCommand::DEC_SPEED:
+			motorUnit.slower();
+			return ElegooConstants::OK;
+		default:
+			return ElegooConstants::IGNORED;
+		}
+	}
+
 	int drive()
 	{
 		ElegooCommand cmd = commandReader.readCommand();
@@ -191,6 +206,11 @@ public:
 		{
 			motorUnit.stopMoving();
 			return selectDriver(cmd);
+		}
+
+		if (changeSpeed(cmd) == ElegooConstants::OK)
+		{
+			return ElegooConstants::OK;
 		}
 
 		if (!usingManualDriver() && cmd != ElegooCommand::NO_COMMAND)

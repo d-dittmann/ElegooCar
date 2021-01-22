@@ -42,6 +42,10 @@ public:
 			return ElegooCommand::LINE_TRACKING_DRIVER;
 		case '*':
 			return ElegooCommand::NEXT_DRIVER;
+		case '+':
+			return ElegooCommand::INC_SPEED;
+		case '-':
+			return ElegooCommand::DEC_SPEED;
 		default:
 			return ElegooCommand::UNK_COMMAND;
 		}

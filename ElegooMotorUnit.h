@@ -91,6 +91,26 @@ public:
 		return *this;
 	}
 
+	ElegooMotorUnit & faster()
+	{
+		uint8_t newSpeed = config.SPEED + config.CHG_SPEED;
+		if (newSpeed <= config.MAX_SPEED)
+		{
+			config.SPEED = newSpeed;
+		}
+		return *this;
+	}
+
+	ElegooMotorUnit & slower()
+	{
+		uint8_t newSpeed = config.SPEED - config.CHG_SPEED;
+		if (newSpeed >= config.MIN_SPEED)
+		{
+			config.SPEED = newSpeed;
+		}
+		return *this;
+	}
+
 	ElegooMotorUnit & moveForwards(int delayMS = 0)
 	{
 		printMovement(delayMS, ElegooCommand::MOVE_FORWARDS);

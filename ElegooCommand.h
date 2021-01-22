@@ -9,6 +9,8 @@ enum ElegooCommand
 	AUTO_DRIVER_2 = 3,
 	LINE_TRACKING_DRIVER,
 	NEXT_DRIVER,
+	INC_SPEED,
+	DEC_SPEED,
 	MOVE_FORWARDS,
 	MOVE_BACKWARDS,
 	STOP_MOVING,
@@ -44,6 +46,10 @@ public:
 			return "Select Line Tracking Driver";
 		case NEXT_DRIVER:
 			return "Toggle to next Driver";
+		case INC_SPEED:
+			return "Increase speed";
+		case DEC_SPEED:
+			return "Decrease speed";
 		case MOVE_FORWARDS:
 			return "Move Forwards";
 		case TURN_RIGHT:
