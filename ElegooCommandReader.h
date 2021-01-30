@@ -9,9 +9,7 @@ class ElegooCommandReader
 private:
 	ElegooReceiver & receiver;
 
-	static const int EMPTY_CACHE = -1;
-
-	int cachedCommand = EMPTY_CACHE;
+	ElegooCommand command = ElegooCommand::NO_COMMAND;
 
 public:
 	ElegooCommandReader(ElegooReceiver & pReceiver) : receiver{pReceiver}
@@ -20,42 +18,21 @@ public:
 
 	bool hasCommand()
 	{
-		if (cachedCommand == EMPTY_CACHE)
+		if (command == ElegooCommand::NO_COMMAND)
 		{
-			cachedCommand = readTheCommand();
+			command = receiver.readCommand();
 		}
 
-		if (cachedCommand == ElegooCommand::NO_COMMAND)
-		{
-			cachedCommand = EMPTY_CACHE;
-			return false;
-		}
-		else
-		{
-			return true;
-		}
+		return command != ElegooCommand::NO_COMMAND;
 	}
 
-	// May also return UNKNOWN_CMD or NO_COMMAND
 	ElegooCommand readCommand()
 	{
-		if (hasCommand())
-		{
-			ElegooCommand theCmd = (ElegooCommand) cachedCommand;
-			cachedCommand = EMPTY_CACHE;
-			return theCmd;
-		}
-		else
-		{
-			return ElegooCommand::NO_COMMAND;
-		}
-	}
+		hasCommand();
 
-private:
-	// May also return UNKNOWN_CMD or NO_COMMAND
-	ElegooCommand readTheCommand()
-	{
-		return receiver.readCommand();
+		auto cmd = command;
+		command = ElegooCommand::NO_COMMAND;
+		return cmd;
 	}
 
 public:
