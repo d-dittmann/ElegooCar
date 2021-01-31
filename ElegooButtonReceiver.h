@@ -55,10 +55,6 @@ template <>
 class ElegooButtonReceiver<UNUSED_PIN>: public ElegooReceiver
 {
 public:
-	ElegooButtonReceiver()
-	{
-	}
-
 	void setup()
 	{
 	}
