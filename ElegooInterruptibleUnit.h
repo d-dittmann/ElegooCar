@@ -7,13 +7,7 @@
 class ElegooInterruptibleUnit
 {
 private:
-	ElegooCommandReader * commandReader;
-
-protected:
-	ElegooInterruptibleUnit() :
-			commandReader(0)
-	{
-	}
+	ElegooCommandReader * commandReader = nullptr;
 
 public:
 	void registerCommandReader(ElegooCommandReader * pCommandReader)
