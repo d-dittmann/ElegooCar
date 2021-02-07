@@ -33,8 +33,8 @@ Using following libraries:
 | Library | Version | Location |
 | :--- | :--- | :--- |
 | Servo | 1.1.7 | https://www.arduinolibraries.info/libraries/servo |
-| IRremote | 2.2.3 | http://www.arduinolibraries.info/libraries/i-rremote |
-| FastLED | 3.3.0 | https://www.arduinolibraries.info/libraries/fast-led |
+| IRremote | 2.8.1 | http://www.arduinolibraries.info/libraries/i-rremote |
+| FastLED | 3.4.0 | https://www.arduinolibraries.info/libraries/fast-led |
 
 
 ## Verify and Upload using the Arduino IDE
