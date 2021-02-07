@@ -30,10 +30,11 @@ Developing using the Sloeber IDE (for Windows) "Download 64 bits Bundle" from ht
 
 Using following libraries:
 
-| Library | Location |
-| :--- | :--- |
-| Servo | Comes with the Sloeber IDE |
-| IRremote - IRremote-2.2.3.zip | http://www.arduinolibraries.info/libraries/i-rremote |
+| Library | Version | Location |
+| :--- | :--- | :--- |
+| Servo | 1.1.7 | https://www.arduinolibraries.info/libraries/servo |
+| IRremote | 2.2.3 | http://www.arduinolibraries.info/libraries/i-rremote |
+| FastLED | 3.3.0 | https://www.arduinolibraries.info/libraries/fast-led |
 
 
 ## Verify and Upload using the Arduino IDE
