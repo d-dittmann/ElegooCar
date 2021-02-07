@@ -46,7 +46,7 @@ public:
 			return ElegooCommand::NO_COMMAND;
 		}
 
-		char charInput = (char) intInput;
+		char charInput = static_cast<char>(intInput);
 		ElegooCommand cmd = checkBluetoothProviders(charInput);
 		return cmd;
 	}
